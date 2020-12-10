@@ -1,9 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using SDA_Core.Entities;
+using WebAPI.DataServices;
+using WebAPI.Helpers;
 
 namespace WebAPI.Controllers
 {
@@ -34,6 +42,6 @@ namespace WebAPI.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
+        }        
     }
 }

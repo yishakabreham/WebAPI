@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.8.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SDA-Core\SDA-Core.csproj" />
   </ItemGroup>
 
 
