@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace SDA_Core.Entities
+{
+    public partial class VwTripInfo
+    {
+        public string TripCode { get; set; }
+        public string RouteCode { get; set; }
+        public string RouteDesc { get; set; }
+        public DateTime TripDate { get; set; }
+        public bool TripIsActive { get; set; }
+        public int? ObjectState { get; set; }
+        public string BusCode { get; set; }
+        public string BusDesc { get; set; }
+        public string BusTypeCode { get; set; }
+        public string BusTypeDesc { get; set; }
+        public int BusCapacity { get; set; }
+        public string PlateNumber { get; set; }
+        public string SideNumber { get; set; }
+        public decimal? TripDiscount { get; set; }
+        public decimal TripUnitAmount { get; set; }
+        public decimal RouteUnitAmount { get; set; }
+        public decimal TimeLength { get; set; }
+    }
+}

@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\SDA-Core\SDA-Core.csproj" />
+    <ProjectReference Include="..\SDA-Core\SDA-Core.csproj" />
   </ItemGroup>
 
 
