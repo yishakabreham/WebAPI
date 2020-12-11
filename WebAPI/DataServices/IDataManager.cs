@@ -10,6 +10,7 @@ namespace WebAPI.DataServices
     {
         #region Getter
         public Task<User> GetUserByUserName(string username);
+        public Task<Organization> GetOwnCompany();
         #endregion
     }
 }

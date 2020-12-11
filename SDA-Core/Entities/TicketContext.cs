@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
+
 #nullable disable
 
 namespace SDA_Core.Entities
@@ -10,7 +11,6 @@ namespace SDA_Core.Entities
     {
         public TicketContext()
         {
-            
         }
 
         public TicketContext(DbContextOptions<TicketContext> options)
@@ -958,6 +958,18 @@ namespace SDA_Core.Entities
                     .IsRequired()
                     .HasMaxLength(26)
                     .HasColumnName("user");
+
+                entity.HasOne(d => d.RoleNavigation)
+                    .WithMany(p => p.RoleMappers)
+                    .HasForeignKey(d => d.Role)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RoleMapper_OrganizationUnitDefinition");
+
+                entity.HasOne(d => d.UserNavigation)
+                    .WithMany(p => p.RoleMappers)
+                    .HasForeignKey(d => d.User)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RoleMapper_User");
             });
 
             modelBuilder.Entity<Route>(entity =>

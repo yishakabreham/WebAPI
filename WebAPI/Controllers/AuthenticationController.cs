@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -48,18 +49,34 @@ namespace WebAPI.Controllers
             }
 
             var validToken = GenerateToken(new User { UserName = username });
+            var company = await _dataManager.GetOwnCompany();
             return Ok(new 
             { 
                 token = validToken,
                 user = new {
+                    id = user.Code,
                     name = string.Format("{0} {1} {2}", user.PersonNavigation.FirstName, user.PersonNavigation.MiddleName, user.PersonNavigation.LastName),
-                    dob = user.PersonNavigation.Dob,
+                    dob = user.PersonNavigation.Dob.Value.ToString(TICKET2020Constants.dateFormat),
                     title = user.PersonNavigation.TitleNavigation.Description,
                     gender = user.PersonNavigation.GenderNavigation.Description,
                     position = user.PersonNavigation.PositionNavigation.Description,
                     isActive = user.PersonNavigation.IsActive
+                },
+                company = new { 
+                    tradeName = company?.TradeName,
+                    brandName = company?.BrandName
                 }
             });
+        }
+
+        [Authorize]
+        [HttpGet("getValues")]
+        public IActionResult getValues()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var claims = identity.Claims.ToList();
+            var userName = claims[0].Value;
+            return Ok("Ok to " + userName);
         }
 
         private string GenerateToken(User user)
