@@ -15,9 +15,9 @@ namespace WebAPI.Dtos
         public string itemCode { get; set; }  //Object Code
     }
 
-    public class GetByDateRange
+    public class GetByDateRangeAndPlace
     {
-        public string id { get; set; }  //Organization TIN
+        //public string id { get; set; }  //Organization TIN
         public string fromDate { get; set; }  //Start Date
         public string toDate { get; set; }  //End Date
         public string source { get; set; }  //End Date
