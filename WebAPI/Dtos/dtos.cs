@@ -23,4 +23,15 @@ namespace WebAPI.Dtos
         public string source { get; set; }  //End Date
         public string destination { get; set; }  //End Date
     }
+
+    //Results
+    public class TripResult
+    {
+        public string tripCode { get; set; }
+        public string source { get; set; }
+        public string destination { get; set; }
+        public double price { get; set; }
+        public string busName { get; set; }
+        public string date { get; set; }
+    }
 }

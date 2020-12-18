@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -31,6 +32,25 @@ namespace WebAPI.Helpers
                 }
             }
             return clearText;
+        }
+
+        public static DateTime? GetDateTime(string strDate)
+        {
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            try
+            {
+                DateTime dateTime;
+                var result = DateTime.TryParseExact(strDate, TICKET2020Constants.dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
+                if (result)
+                {
+                    return dateTime;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
