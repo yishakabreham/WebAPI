@@ -21,6 +21,7 @@ namespace SDA_Core.Entities
         public decimal TotalAmount { get; set; }
         public string Remark { get; set; }
 
+        public virtual Trip TripNavigation { get; set; }
         public virtual Voucher VoucherNavigation { get; set; }
         public virtual ICollection<TripTransaction> TripTransactions { get; set; }
     }

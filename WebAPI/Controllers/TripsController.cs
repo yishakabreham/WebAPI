@@ -61,7 +61,10 @@ namespace WebAPI.Controllers
                     source = r.RouteNavigation.SourceNavigation.Description,
                     destination = r.RouteNavigation.DestinationNavigation.Description,
                     busName = r.BusNavigation.Description,
-                    date = r.Date.ToString(TICKET2020Constants.dateTimeFormat)
+                    date = r.Date.ToString(TICKET2020Constants.dateTimeFormat),
+                    totalSeats = r.BusNavigation.SeatArrangements.Where(s => s.Type == TICKET2020Constants.SEAT).Count(),
+                    availableSeats = r.LineItems.Count,
+                    isExpired = DateTime.Now > r.Date
                 }).ToList();
 
                 return Ok(new { trips = resultDto });

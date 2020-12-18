@@ -497,6 +497,12 @@ namespace SDA_Core.Entities
                     .HasMaxLength(26)
                     .HasColumnName("voucher");
 
+                entity.HasOne(d => d.TripNavigation)
+                    .WithMany(p => p.LineItems)
+                    .HasForeignKey(d => d.Trip)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LineItem_Trip");
+
                 entity.HasOne(d => d.VoucherNavigation)
                     .WithMany(p => p.LineItems)
                     .HasForeignKey(d => d.Voucher)

@@ -7,6 +7,11 @@ namespace SDA_Core.Entities
 {
     public partial class Trip
     {
+        public Trip()
+        {
+            LineItems = new HashSet<LineItem>();
+        }
+
         public string Code { get; set; }
         public string Route { get; set; }
         public string Bus { get; set; }
@@ -19,5 +24,6 @@ namespace SDA_Core.Entities
         public virtual Bu BusNavigation { get; set; }
         public virtual ObjectStateDefinition ObjectStateNavigation { get; set; }
         public virtual Route RouteNavigation { get; set; }
+        public virtual ICollection<LineItem> LineItems { get; set; }
     }
 }

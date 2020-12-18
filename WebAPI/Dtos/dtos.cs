@@ -33,5 +33,13 @@ namespace WebAPI.Dtos
         public double price { get; set; }
         public string busName { get; set; }
         public string date { get; set; }
+        public int availableSeats { get; set; }
+        public bool isExpired { get; set; }
+        public int totalSeats { get; set; }
+    }
+
+    public class BusResult
+    {
+        public int MyProperty { get; set; }
     }
 }
