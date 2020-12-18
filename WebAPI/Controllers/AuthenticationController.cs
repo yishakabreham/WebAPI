@@ -33,28 +33,19 @@ namespace WebAPI.Controllers
         {
             if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                return Ok(new
-                {
-                    approved = 0
-                });
+                return Unauthorized();
             }
 
             var user = await _dataManager.GetUserByUserName(username);
             if(user == null)
             {
-                return Ok(new
-                {
-                    approved = 0
-                });
+                return Unauthorized();
             }
 
             var encriptedPass = Helper.Encrypt(password);
             if (string.IsNullOrWhiteSpace(encriptedPass) || encriptedPass != user.Password)
             {
-                return Ok(new
-                {
-                    approved = 0
-                });
+                return Unauthorized();
             }
 
             var validToken = GenerateToken(new User { UserName = username });
