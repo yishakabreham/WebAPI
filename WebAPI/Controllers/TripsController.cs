@@ -13,6 +13,7 @@ namespace WebAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class TripsController : ControllerBase
     {
         IDataManager _dataManager;
@@ -21,8 +22,7 @@ namespace WebAPI.Controllers
             _dataManager = dataManager;
         }
 
-        [Authorize]
-        [HttpGet("getTripsByDate")]
+        [HttpPost("getTripsByDate")]
         public async Task<IActionResult> getTrips(GetByDateRangeAndPlace filter)
         {            
             if(filter == null || string.IsNullOrWhiteSpace(filter.fromDate))
@@ -70,6 +70,19 @@ namespace WebAPI.Controllers
                 return Ok(new { trips = resultDto });
             }
             return Ok(new { trips = result });
+        }
+
+        [HttpPost("getTripSeatArrangement")]
+        public async Task<IActionResult> getTripSeatArrangement(String trip)
+        {
+            if (string.IsNullOrWhiteSpace(trip))
+            {
+                return BadRequest("Trip Code required!");
+            }
+
+            var result = await _dataManager.GetTripSeatArrangements(trip);
+
+            return Ok(new { result = result });
         }
     }
 }

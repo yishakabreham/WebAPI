@@ -94,5 +94,10 @@ namespace WebAPI.Helpers
         public const string PT_BUS_TYPE = "BUS TYPE";
         #endregion
 
+        #region OBJECT STATE DEFINITIONS
+        public const string OSD_REFUNDED = "1005";
+        public const string OSD_EXTENDED = "1006";
+        #endregion
+
     }
 }

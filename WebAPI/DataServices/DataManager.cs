@@ -40,6 +40,30 @@ namespace WebAPI.DataServices
             return await result.ToListAsync();
         }
 
+        public async Task<TripSeatArrangementResult> GetTripSeatArrangements(string tripCode)
+        {
+            if (!string.IsNullOrWhiteSpace(tripCode))
+            {
+                var soldSeats = await (from trans in _context.TripTransactions
+                                where trans.LineItemNavigation.Trip == tripCode &&
+                                trans.LineItemNavigation.VoucherNavigation.LastObjectState != TICKET2020Constants.OSD_REFUNDED && 
+                                trans.LineItemNavigation.VoucherNavigation.LastObjectState != TICKET2020Constants.OSD_EXTENDED
+                                select trans.Seat).ToListAsync();
+
+                var seatArrangements = await (from tp in _context.Trips
+                                       where tp.Code == tripCode
+                                       select tp.BusNavigation.SeatArrangements).FirstOrDefaultAsync();
+
+                return new TripSeatArrangementResult { soldSeats = soldSeats,
+                                                       seatArrangements = seatArrangements?.Select(a => new SeatArrangementResult
+                                                       {
+                                                            Code = a.Code, Name = a.Name, Type = a.Type, X = a.X, Y = a.Y, Reference = a.Reference
+                                                       }).ToList(),
+                                                       soldSeatsCount = soldSeats != null ? soldSeats.Count : 0 };
+
+            }
+            return null;
+        }
         #endregion
     }
 }

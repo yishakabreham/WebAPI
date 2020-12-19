@@ -13,6 +13,7 @@ namespace WebAPI.DataServices
         public Task<User> GetUserByUserName(string username);
         public Task<Organization> GetOwnCompany();
         public Task<List<Trip>> GetTrips(DateTime fromDate, DateTime toDate, string source, string destination);
+        public Task<TripSeatArrangementResult> GetTripSeatArrangements(string tripCode);
         #endregion
     }
 }

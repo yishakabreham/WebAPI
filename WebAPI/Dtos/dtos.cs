@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDA_Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,5 +42,23 @@ namespace WebAPI.Dtos
     public class BusResult
     {
         public int MyProperty { get; set; }
+    }
+
+    public class TripSeatArrangementResult
+    {
+        public int soldSeatsCount { get; set; }
+        public List<String> soldSeats { get; set; }
+        public List<SeatArrangementResult> seatArrangements { get; set; }
+    }
+
+    public class SeatArrangementResult
+    {
+        public string Code { get; set; }
+        public string Reference { get; set; }
+        public string Type { get; set; }
+        public string Name { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string Remark { get; set; }
     }
 }
