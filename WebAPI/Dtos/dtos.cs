@@ -31,7 +31,8 @@ namespace WebAPI.Dtos
         public string tripCode { get; set; }
         public string source { get; set; }
         public string destination { get; set; }
-        public double price { get; set; }
+        public decimal price { get; set; }
+        public decimal discount { get; set; }
         public string busName { get; set; }
         public string date { get; set; }
         public int availableSeats { get; set; }
@@ -49,16 +50,26 @@ namespace WebAPI.Dtos
         public int soldSeatsCount { get; set; }
         public List<String> soldSeats { get; set; }
         public List<SeatArrangementResult> seatArrangements { get; set; }
+        public TripBusResult busInfo { get; set; }
     }
 
     public class SeatArrangementResult
     {
         public string Code { get; set; }
-        public string Reference { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public string Remark { get; set; }
+    }
+
+    public class TripBusResult
+    {
+        public string code { get; set; }
+        public string name { get; set; }
+        public string plateNo { get; set; }
+        public string sideNo { get; set; }
+        public string driver { get; set; }
+        public string[] coDrivers { get; set; }
     }
 }

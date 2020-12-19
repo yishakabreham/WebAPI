@@ -53,22 +53,6 @@ namespace WebAPI.Controllers
 
             var result = await _dataManager.GetTrips(fromDate.Value, toDate.Value, filter.source, filter.destination);
 
-            if(result != null)
-            {
-                var resultDto = result.Select(r => new TripResult
-                {
-                    tripCode = r.Code,
-                    source = r.RouteNavigation.SourceNavigation.Description,
-                    destination = r.RouteNavigation.DestinationNavigation.Description,
-                    busName = r.BusNavigation.Description,
-                    date = r.Date.ToString(TICKET2020Constants.dateTimeFormat),
-                    totalSeats = r.BusNavigation.SeatArrangements.Where(s => s.Type == TICKET2020Constants.SEAT).Count(),
-                    availableSeats = r.LineItems.Count,
-                    isExpired = DateTime.Now > r.Date
-                }).ToList();
-
-                return Ok(new { trips = resultDto });
-            }
             return Ok(new { trips = result });
         }
 

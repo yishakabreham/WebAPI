@@ -38,6 +38,10 @@ namespace WebAPI.Helpers
         public const string TRIP_ROUTE_RELATION = "LKUP000000050";
         public const string TRIP_SUB_ROUTE_RELATION_LEVEL = "LKUP000000051";
 
+        //New
+        public const string TRIP_RELATION_DRIVER = "LKUP000000018";
+        public const string TRIP_RELATION_CODRIVER = "LKUP000000019";
+
         #endregion
 
         #region MODULE
@@ -94,6 +98,7 @@ namespace WebAPI.Helpers
         public const string PT_BUS_TYPE = "BUS TYPE";
         #endregion
 
+        // New Constants
         #region OBJECT STATE DEFINITIONS
         public const string OSD_REFUNDED = "1005";
         public const string OSD_EXTENDED = "1006";
