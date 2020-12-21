@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SDA_Core.Entities;
 using WebAPI.DataServices;
+using WebAPI.Dtos;
 using WebAPI.Helpers;
 
 namespace WebAPI.Controllers
@@ -28,27 +29,27 @@ namespace WebAPI.Controllers
             _configuration = config;
         }
 
-        [HttpGet("loginuser")]
-        public async Task<IActionResult> Login(string username, string password)
+        [HttpPost("loginuser")]
+        public async Task<IActionResult> Login(LoginData login)
         {
-            if(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            if(login == null || string.IsNullOrWhiteSpace(login.username) || string.IsNullOrWhiteSpace(login.password))
             {
                 return Unauthorized();
             }
 
-            var user = await _dataManager.GetUserByUserName(username);
+            var user = await _dataManager.GetUserByUserName(login.username);
             if(user == null)
             {
                 return Unauthorized();
             }
 
-            var encriptedPass = Helper.Encrypt(password);
+            var encriptedPass = Helper.Encrypt(login.password);
             if (string.IsNullOrWhiteSpace(encriptedPass) || encriptedPass != user.Password)
             {
                 return Unauthorized();
             }
 
-            var validToken = GenerateToken(new User { UserName = username });
+            var validToken = GenerateToken(new User { UserName = login.username });
             var company = await _dataManager.GetOwnCompany();
             return Ok(new 
             {

@@ -10,6 +10,12 @@ namespace WebAPI.Dtos
     {
     }
 
+    public class LoginData
+    {
+        public string username { get; set; }
+        public string password { get; set; }
+    }
+
     public class GetByCode
     {
         public string id { get; set; }  //Organization TIN
@@ -50,6 +56,8 @@ namespace WebAPI.Dtos
         public int soldSeatsCount { get; set; }
         public List<String> soldSeats { get; set; }
         public List<SeatArrangementResult> seatArrangements { get; set; }
+        public int maxX { get; set; }
+        public int maxY { get; set; }
         public TripBusResult busInfo { get; set; }
     }
 

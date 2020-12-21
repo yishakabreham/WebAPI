@@ -56,7 +56,7 @@ namespace WebAPI.Controllers
             return Ok(new { trips = result });
         }
 
-        [HttpPost("getTripSeatArrangement")]
+        [HttpGet("getTripSeatArrangement")]
         public async Task<IActionResult> getTripSeatArrangement(String trip)
         {
             if (string.IsNullOrWhiteSpace(trip))

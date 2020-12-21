@@ -88,7 +88,9 @@ namespace WebAPI.DataServices
                                                             sideNo = seatArrangements?.FirstOrDefault().ReferenceNavigation.SideNumber,
                                                             driver = busInfo?.FirstOrDefault(b => b.RelationLevel == TICKET2020Constants.TRIP_RELATION_DRIVER)?.Reference,
                                                             coDrivers  = busInfo?.Where(b => b.RelationLevel == TICKET2020Constants.TRIP_RELATION_CODRIVER)?.Select(b => b.Reference).ToArray(),
-                                                        }
+                                                        },
+                                                        maxX = seatArrangements != null ? seatArrangements.Max(s => s.X) : 0,
+                                                        maxY = seatArrangements != null ? seatArrangements.Max(s => s.Y) : 0
                 };
 
             }
