@@ -44,6 +44,8 @@ namespace WebAPI.DataServices
                 tripCode = r.trip.Code,
                 source = r.trip.RouteNavigation.SourceNavigation.Description,
                 destination = r.trip.RouteNavigation.DestinationNavigation.Description,
+                sourceLocal = r.trip.RouteNavigation.SourceNavigation.Remark,
+                destinationLocal = r.trip.RouteNavigation.DestinationNavigation.Remark,
                 busName = r.trip.BusNavigation.Description,
                 date = r.trip.Date.ToString(TICKET2020Constants.dateTimeFormat),
                 totalSeats = r.trip.BusNavigation.SeatArrangements.Where(s => s.Type == TICKET2020Constants.SEAT).Count(),

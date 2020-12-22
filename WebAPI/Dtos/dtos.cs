@@ -44,6 +44,8 @@ namespace WebAPI.Dtos
         public int availableSeats { get; set; }
         public bool isExpired { get; set; }
         public int totalSeats { get; set; }
+        public string sourceLocal { get; set; }
+        public string destinationLocal { get; set; }
     }
 
     public class BusResult
