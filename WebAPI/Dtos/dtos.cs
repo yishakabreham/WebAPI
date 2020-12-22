@@ -18,7 +18,6 @@ namespace WebAPI.Dtos
 
     public class GetByCode
     {
-        public string id { get; set; }  //Organization TIN
         public string itemCode { get; set; }  //Object Code
     }
 

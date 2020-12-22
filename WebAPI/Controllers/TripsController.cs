@@ -56,15 +56,15 @@ namespace WebAPI.Controllers
             return Ok(new { trips = result });
         }
 
-        [HttpGet("getTripSeatArrangement")]
-        public async Task<IActionResult> getTripSeatArrangement(String trip)
+        [HttpPost("getTripSeatArrangement")]
+        public async Task<IActionResult> getTripSeatArrangement(GetByCode trip)
         {
-            if (string.IsNullOrWhiteSpace(trip))
+            if (trip == null || string.IsNullOrWhiteSpace(trip.itemCode))
             {
                 return BadRequest("Trip Code required!");
             }
 
-            var result = await _dataManager.GetTripSeatArrangements(trip);
+            var result = await _dataManager.GetTripSeatArrangements(trip.itemCode);
 
             return Ok(new { result = result });
         }
