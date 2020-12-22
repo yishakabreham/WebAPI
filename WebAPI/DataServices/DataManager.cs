@@ -98,6 +98,11 @@ namespace WebAPI.DataServices
             }
             return null;
         }
+
+        public async Task<List<Configuration>> GetConfigurations()
+        {
+            return await _context.Configurations.ToListAsync();
+        }
         #endregion
     }
 }

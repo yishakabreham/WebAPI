@@ -81,4 +81,11 @@ namespace WebAPI.Dtos
         public string driver { get; set; }
         public string[] coDrivers { get; set; }
     }
+
+    public class ConfigurationResult
+    {
+        public int Reference { get; set; }
+        public string Attribute { get; set; }
+        public string CurrentValue { get; set; }
+    }
 }
