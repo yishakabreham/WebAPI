@@ -68,5 +68,17 @@ namespace WebAPI.Controllers
 
             return Ok(new { result = result });
         }
+
+        [HttpPost("getConsigneeByPhone")]
+        public async Task<IActionResult> getTripConsignee(GetByCode consignee)
+        {
+            if (consignee == null || string.IsNullOrWhiteSpace(consignee.itemCode))
+            {
+                return BadRequest("Consignee Phone No. is required!");
+            }
+
+            var result = await _dataManager.GetVoucherConsigneesByPhone(consignee.itemCode);
+            return Ok(new { consignees = result });
+        }
     }
 }

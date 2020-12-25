@@ -103,6 +103,12 @@ namespace WebAPI.DataServices
         {
             return await _context.Configurations.ToListAsync();
         }
+
+        public async Task<List<VoucherConsignee>> GetVoucherConsigneesByPhone(string phoneNo)
+        {
+            return await _context.VoucherConsignees.Where(c => c.Mobile == phoneNo).ToListAsync();
+        }
+
         #endregion
     }
 }

@@ -15,6 +15,7 @@ namespace WebAPI.DataServices
         public Task<List<TripResult>> GetTrips(DateTime fromDate, DateTime toDate, string source, string destination);
         public Task<TripSeatArrangementResult> GetTripSeatArrangements(string tripCode);
         public Task<List<Configuration>> GetConfigurations();
+        public Task<List<VoucherConsignee>> GetVoucherConsigneesByPhone(string phoneNo);
         #endregion
     }
 }
