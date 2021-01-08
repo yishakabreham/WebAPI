@@ -30,14 +30,14 @@ namespace WebAPI.Hubs
                     break;
             }
             Console.WriteLine("Change State to => " + status + " : " + trip + " = " + seat);
-            await Clients.Others.SendAsync("seatStatusReceived", status, trip, new List<string> { seat });
+            await Clients.Others.SendAsync("seatStatusReceived", status, trip, seat );
         }
 
         public async Task updatedMe(string trip)
         {
             Console.WriteLine("Update Me about => " + trip);
             var updates = await SeatsOnProccess.getOnProcessSeats(trip);
-            await Clients.Caller.SendAsync("seatStatusReceived", 1, trip, updates);
+            await Clients.Caller.SendAsync("seatStatusReceived", 1, trip, updates.Any() ? String.Join('%', updates) : null);
         }
     }
 }
