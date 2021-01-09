@@ -35,6 +35,7 @@ namespace WebAPI.Hubs
                 default:
                     break;
             }
+
             Console.WriteLine("Change State to => " + status + " : " + trip + " = " + seat);
             await Clients.Others.seatStatusReceived(status, trip, seat );
         }
@@ -60,7 +61,7 @@ namespace WebAPI.Hubs
                 SeatStatusUpdated(-1, conSeats.Result.trip, String.Join("%", conSeats.Result.seats)).Wait();
             }
 
-             return base.OnDisconnectedAsync(exception);
+            return base.OnDisconnectedAsync(exception);
         }
     }
 }

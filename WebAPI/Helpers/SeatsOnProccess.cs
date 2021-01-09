@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebAPI.Helpers
 {
@@ -12,15 +13,37 @@ namespace WebAPI.Helpers
 
         public static async Task<List<string>> getOnProcessSeats(string trip) => await Task.Run(() => processZip.GetValueOrDefault(trip));
 
-        public static async Task removeOnProcess(string trip, IEnumerable<string> seats) => await Task.Run(() => processZip.GetValueOrDefault(trip)?.RemoveAll(s => seats.Contains(s)));
+        public static async Task removeOnProcess(string trip, IEnumerable<string> seats)
+        {
+            var tpValue = processZip.GetValueOrDefault(trip);
+            if(tpValue != null)
+            {
+                await Task.Run(() => tpValue.RemoveAll(s => seats.Contains(s)));
+                if (!tpValue.Any())
+                {
+                    await Task.Run(() => processZip.Remove(trip));
+                }
+            }
+        }
 
         public static async Task addOnProcess(string trip, string seat) =>
                             await (processZip.ContainsKey(trip) ?
                             Task.Run(() => processZip.GetValueOrDefault(trip).Add(seat)) :
                             Task.Run(() => processZip.Add(trip, new List<string> { seat })));
 
-        public static async Task removeConnSeats(string connection, IEnumerable<string> seats) => await Task.Run(() => connectionSeats.FirstOrDefault(c => c.connectionId == connection)?.seats.RemoveAll(s => seats.Contains(s)));
-
+        public static async Task removeConnSeats(string connection, IEnumerable<string> seats)
+        {
+            var conSeat = connectionSeats.FirstOrDefault(c => c.connectionId == connection);
+            if (conSeat != null)
+            {
+                await Task.Run(() => conSeat.seats.RemoveAll(s => seats.Contains(s)));
+                if (!conSeat.seats.Any())
+                {
+                    await Task.Run(() => connectionSeats.Remove(conSeat));
+                }
+            }
+        }
+        
         public static async Task removeAllConnSeats(string connection) => await Task.Run(() => connectionSeats.RemoveAll(c => c.connectionId == connection));
 
         public static async Task addConnSeats(string connection, string trip, string seat) =>
