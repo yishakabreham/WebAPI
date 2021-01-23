@@ -93,6 +93,14 @@ namespace WebAPI.DataServices
                               where tp.Code == tripCode && rl.Type == TICKET2020Constants.TRIP_RELATION && (rl.RelationLevel == TICKET2020Constants.TRIP_RELATION_DRIVER || rl.RelationLevel == TICKET2020Constants.TRIP_RELATION_CODRIVER)
                               select rl).ToListAsync();
 
+                var subTrips = from rl in _context.Relations
+                               join pr in _context.Pricings
+                               on rl.Code equals pr.Reference
+                               join rt in _context.Routes
+                               on rl.Reference equals rt.Code
+                               where rl.Referring == tripCode
+                               select new {relarionCode = rl.Code, price = pr, route = rt };
+
                 return new TripSeatArrangementResult { soldSeats = soldSeats, 
                                                        seatArrangements = seatArrangements?.Select(a => new SeatArrangementResult
                                                        {
@@ -109,7 +117,13 @@ namespace WebAPI.DataServices
                                                             coDrivers  = busInfo?.Where(b => b.RelationLevel == TICKET2020Constants.TRIP_RELATION_CODRIVER)?.Select(b => b.Reference).ToArray(),
                                                         },
                                                         maxX = seatArrangements != null ? seatArrangements.Max(s => s.X) : 0,
-                                                        maxY = seatArrangements != null ? seatArrangements.Max(s => s.Y) : 0
+                                                        maxY = seatArrangements != null ? seatArrangements.Max(s => s.Y) : 0,
+                                                        subTrips = subTrips.Select(t => new SubTripsResult
+                                                        {
+                                                            tripCode = t.relarionCode, destination = t.route.DestinationNavigation.Description,
+                                                            destinationLocal = t.route.DestinationNavigation.Remark, source = t.route.SourceNavigation.Description,
+                                                            sourceLocal = t.route.SourceNavigation.Remark, price = t.price.UnitAmount, discount = t.price.Discount.HasValue ? t.price.Discount.Value : 0
+                                                        }).ToList()
                 };
 
             }

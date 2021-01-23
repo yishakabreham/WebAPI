@@ -61,6 +61,7 @@ namespace WebAPI.Dtos
         public int maxX { get; set; }
         public int maxY { get; set; }
         public TripBusResult busInfo { get; set; }
+        public List<SubTripsResult> subTrips { get; set; }
     }
 
     public class SeatArrangementResult
@@ -71,6 +72,17 @@ namespace WebAPI.Dtos
         public int X { get; set; }
         public int Y { get; set; }
         public string Remark { get; set; }
+    }
+
+    public class SubTripsResult
+    {
+        public string tripCode { get; set; }
+        public string source { get; set; }
+        public string destination { get; set; }
+        public decimal price { get; set; }
+        public decimal discount { get; set; }
+        public string sourceLocal { get; set; }
+        public string destinationLocal { get; set; }
     }
 
     public class TripBusResult
