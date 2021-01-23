@@ -45,6 +45,7 @@ namespace WebAPI.Dtos
         public int totalSeats { get; set; }
         public string sourceLocal { get; set; }
         public string destinationLocal { get; set; }
+        public int subTripsCount { get; set; }
     }
 
     public class BusResult

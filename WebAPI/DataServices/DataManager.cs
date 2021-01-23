@@ -30,15 +30,31 @@ namespace WebAPI.DataServices
 
         public async Task<List<TripResult>> GetTrips(DateTime fromDate, DateTime toDate, string source, string destination)
         {
+            //var subTrips = _context.Relations.Join(_context.Pricings,
+            //                        relation => relation.Code,
+            //                        price => price.Reference,
+            //                        (relation, price) => new { subTrip = relation, price })
+            //                .Where(s => s.subTrip.Type == TICKET2020Constants.TRIP_ROUTE_RELATION && s.subTrip.RelationLevel == TICKET2020Constants.TRIP_SUB_ROUTE_RELATION_LEVEL)
+            //                .Join(_context.Routes,
+            //                        relationTrips => relationTrips.subTrip.Reference,
+            //                        route => route.Code,
+            //                        (relationTrips, route) => new {route, relationTrips.price, mainTrip = relationTrips.subTrip.Referring });
+
+            //var subTripsCount = from rl in _context.Relations
+            //                    where rl.Type == TICKET2020Constants.TRIP_ROUTE_RELATION && rl.RelationLevel == TICKET2020Constants.TRIP_SUB_ROUTE_RELATION_LEVEL
+            //                    select new {trip = rl.Referring,}
+
             var result = from tp in _context.Trips
                          join pr in _context.Pricings
                          on tp.Code equals pr.Reference
-                         where tp.Date.Date >= fromDate.Date && tp.Date.Date <= toDate.Date
-                         select new { trip = tp, price = pr};
+                         where tp.Date.Date >= fromDate.Date && tp.Date.Date <= toDate.Date                         
+                         select new { trip = tp, price = pr, 
+                             subTrips = _context.Relations.Where(r => r.Referring == tp.Code && r.Type == TICKET2020Constants.TRIP_ROUTE_RELATION && r.RelationLevel == TICKET2020Constants.TRIP_SUB_ROUTE_RELATION_LEVEL).Count()
+                         };
 
             result = !string.IsNullOrWhiteSpace(source) ? result.Where(tp => tp.trip.RouteNavigation.Source == source) : result;
             result = !string.IsNullOrWhiteSpace(destination) ? result.Where(tp => tp.trip.RouteNavigation.Destination == destination) : result;
-
+            
             return await result.Select(r => new TripResult
             {
                 tripCode = r.trip.Code,
@@ -52,7 +68,8 @@ namespace WebAPI.DataServices
                 availableSeats = r.trip.LineItems.Count,
                 isExpired = DateTime.Now > r.trip.Date,
                 price = r.price.UnitAmount,
-                discount = r.price.Discount.Value
+                discount = r.price.Discount.Value,
+                subTripsCount = r.subTrips
             }).ToListAsync();
         }
 
