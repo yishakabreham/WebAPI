@@ -7,6 +7,11 @@ namespace SDA_Core.Entities
 {
     public partial class SeatArrangement
     {
+        public SeatArrangement()
+        {
+            TripTransactions = new HashSet<TripTransaction>();
+        }
+
         public string Code { get; set; }
         public string Reference { get; set; }
         public string Type { get; set; }
@@ -17,5 +22,6 @@ namespace SDA_Core.Entities
 
         public virtual Bu ReferenceNavigation { get; set; }
         public virtual Lookup TypeNavigation { get; set; }
+        public virtual ICollection<TripTransaction> TripTransactions { get; set; }
     }
 }

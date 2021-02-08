@@ -12,9 +12,9 @@ namespace SDA_Core.Entities
             TripTransactions = new HashSet<TripTransaction>();
         }
 
-        public string Code { get; set; }
-        public string Voucher { get; set; }
-        public string Trip { get; set; }
+        public int Code { get; set; }
+        public int Voucher { get; set; }
+        public int Trip { get; set; }
         public decimal? UnitAmount { get; set; }
         public decimal Quantity { get; set; }
         public decimal? Discount { get; set; }

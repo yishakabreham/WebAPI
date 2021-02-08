@@ -85,9 +85,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Activity", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.ActivityDefinition).HasColumnName("activityDefinition");
 
@@ -99,9 +97,7 @@ namespace SDA_Core.Entities
                     .HasColumnType("datetime")
                     .HasColumnName("endTimeStamp");
 
-                entity.Property(e => e.OrganizationUnitDefinition)
-                    .HasMaxLength(26)
-                    .HasColumnName("organizationUnitDefinition");
+                entity.Property(e => e.OrganizationUnitDefinition).HasColumnName("organizationUnitDefinition");
 
                 entity.Property(e => e.Reference)
                     .IsRequired()
@@ -463,9 +459,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("LineItem", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Discount)
                     .HasColumnType("money")
@@ -483,19 +477,13 @@ namespace SDA_Core.Entities
                     .HasColumnType("money")
                     .HasColumnName("totalAmount");
 
-                entity.Property(e => e.Trip)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("trip");
+                entity.Property(e => e.Trip).HasColumnName("trip");
 
                 entity.Property(e => e.UnitAmount)
                     .HasColumnType("money")
                     .HasColumnName("unitAmount");
 
-                entity.Property(e => e.Voucher)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("voucher");
+                entity.Property(e => e.Voucher).HasColumnName("voucher");
 
                 entity.HasOne(d => d.TripNavigation)
                     .WithMany(p => p.LineItems)
@@ -665,14 +653,9 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("OrganizationUnit", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
-                entity.Property(e => e.OrganizationUnitDefinition)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("organizationUnitDefinition");
+                entity.Property(e => e.OrganizationUnitDefinition).HasColumnName("organizationUnitDefinition");
 
                 entity.Property(e => e.Reference)
                     .IsRequired()
@@ -687,7 +670,7 @@ namespace SDA_Core.Entities
                     .WithMany(p => p.OrganizationUnits)
                     .HasForeignKey(d => d.OrganizationUnitDefinition)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_OrganizationUnit_OrganizationUnitDefinition");
+                    .HasConstraintName("FK_OrganizationUnit_OrganizationUnit");
             });
 
             modelBuilder.Entity<OrganizationUnitDefinition>(entity =>
@@ -696,9 +679,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("OrganizationUnitDefinition", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Abbrivation)
                     .HasMaxLength(26)
@@ -850,18 +831,13 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Pricing", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Discount)
                     .HasColumnType("decimal(18, 2)")
                     .HasColumnName("discount");
 
-                entity.Property(e => e.Reference)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("reference");
+                entity.Property(e => e.Reference).HasColumnName("reference");
 
                 entity.Property(e => e.Remark)
                     .HasMaxLength(100)
@@ -878,9 +854,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Refund", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Amount)
                     .HasColumnType("money")
@@ -909,9 +883,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Relation", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Reference)
                     .IsRequired()
@@ -964,18 +936,6 @@ namespace SDA_Core.Entities
                     .IsRequired()
                     .HasMaxLength(26)
                     .HasColumnName("user");
-
-                entity.HasOne(d => d.RoleNavigation)
-                    .WithMany(p => p.RoleMappers)
-                    .HasForeignKey(d => d.Role)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RoleMapper_OrganizationUnitDefinition");
-
-                entity.HasOne(d => d.UserNavigation)
-                    .WithMany(p => p.RoleMappers)
-                    .HasForeignKey(d => d.User)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RoleMapper_User");
             });
 
             modelBuilder.Entity<Route>(entity =>
@@ -984,9 +944,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Route", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -1101,9 +1059,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Trip", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Bus)
                     .IsRequired()
@@ -1126,10 +1082,7 @@ namespace SDA_Core.Entities
                     .HasMaxLength(100)
                     .HasColumnName("remark");
 
-                entity.Property(e => e.Route)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("route");
+                entity.Property(e => e.Route).HasColumnName("route");
 
                 entity.HasOne(d => d.BusNavigation)
                     .WithMany(p => p.Trips)
@@ -1155,14 +1108,9 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("TripTransaction", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
-                entity.Property(e => e.LineItem)
-                    .IsRequired()
-                    .HasMaxLength(26)
-                    .HasColumnName("lineItem");
+                entity.Property(e => e.LineItem).HasColumnName("lineItem");
 
                 entity.Property(e => e.Remark)
                     .HasMaxLength(100)
@@ -1178,6 +1126,12 @@ namespace SDA_Core.Entities
                     .HasForeignKey(d => d.LineItem)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TripTransaction_LineItem");
+
+                entity.HasOne(d => d.SeatNavigation)
+                    .WithMany(p => p.TripTransactions)
+                    .HasForeignKey(d => d.Seat)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TripTransaction_SeatArrangement");
             });
 
             modelBuilder.Entity<TypeList>(entity =>
@@ -1279,9 +1233,7 @@ namespace SDA_Core.Entities
 
                 entity.ToTable("Voucher", "BUS");
 
-                entity.Property(e => e.Code)
-                    .HasMaxLength(26)
-                    .HasColumnName("code");
+                entity.Property(e => e.Code).HasColumnName("code");
 
                 entity.Property(e => e.Consignee).HasColumnName("consignee");
 
@@ -1299,13 +1251,9 @@ namespace SDA_Core.Entities
                     .HasColumnType("datetime")
                     .HasColumnName("issuedDate");
 
-                entity.Property(e => e.LastActivity)
-                    .HasMaxLength(26)
-                    .HasColumnName("lastActivity");
+                entity.Property(e => e.LastActivity).HasColumnName("lastActivity");
 
-                entity.Property(e => e.LastObjectState)
-                    .HasMaxLength(26)
-                    .HasColumnName("lastObjectState");
+                entity.Property(e => e.LastObjectState).HasColumnName("lastObjectState");
 
                 entity.Property(e => e.Remark)
                     .HasMaxLength(100)
@@ -1314,6 +1262,16 @@ namespace SDA_Core.Entities
                 entity.Property(e => e.Type)
                     .HasMaxLength(26)
                     .HasColumnName("type");
+
+                entity.HasOne(d => d.LastActivityNavigation)
+                    .WithMany(p => p.Vouchers)
+                    .HasForeignKey(d => d.LastActivity)
+                    .HasConstraintName("FK_Voucher_lastActivity");
+
+                entity.HasOne(d => d.LastObjectStateNavigation)
+                    .WithMany(p => p.Vouchers)
+                    .HasForeignKey(d => d.LastObjectState)
+                    .HasConstraintName("FK_Voucher_lastObjectState");
 
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.Vouchers)

@@ -11,6 +11,7 @@ namespace SDA_Core.Entities
         {
             ObjectStates = new HashSet<ObjectState>();
             Trips = new HashSet<Trip>();
+            Vouchers = new HashSet<Voucher>();
         }
 
         public int Code { get; set; }
@@ -21,5 +22,6 @@ namespace SDA_Core.Entities
 
         public virtual ICollection<ObjectState> ObjectStates { get; set; }
         public virtual ICollection<Trip> Trips { get; set; }
+        public virtual ICollection<Voucher> Vouchers { get; set; }
     }
 }

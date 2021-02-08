@@ -12,8 +12,5 @@ namespace SDA_Core.Entities
         public string Role { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public string Remark { get; set; }
-
-        public virtual OrganizationUnitDefinition RoleNavigation { get; set; }
-        public virtual User UserNavigation { get; set; }
     }
 }

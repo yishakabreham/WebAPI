@@ -12,8 +12,8 @@ namespace SDA_Core.Entities
             LineItems = new HashSet<LineItem>();
         }
 
-        public string Code { get; set; }
-        public string Route { get; set; }
+        public int Code { get; set; }
+        public int Route { get; set; }
         public string Bus { get; set; }
         public DateTime Date { get; set; }
         public bool IsActive { get; set; }

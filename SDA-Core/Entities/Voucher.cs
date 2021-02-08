@@ -12,7 +12,7 @@ namespace SDA_Core.Entities
             LineItems = new HashSet<LineItem>();
         }
 
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string Type { get; set; }
         public int Consignee { get; set; }
         public DateTime IssuedDate { get; set; }
@@ -20,10 +20,12 @@ namespace SDA_Core.Entities
         public bool IsChild { get; set; }
         public bool IsVoid { get; set; }
         public decimal GrandTotal { get; set; }
-        public string LastObjectState { get; set; }
-        public string LastActivity { get; set; }
+        public int? LastObjectState { get; set; }
+        public int? LastActivity { get; set; }
         public string Remark { get; set; }
 
+        public virtual Activity LastActivityNavigation { get; set; }
+        public virtual ObjectStateDefinition LastObjectStateNavigation { get; set; }
         public virtual Lookup TypeNavigation { get; set; }
         public virtual ICollection<LineItem> LineItems { get; set; }
     }

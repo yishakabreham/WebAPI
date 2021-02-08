@@ -12,7 +12,7 @@ namespace SDA_Core.Entities
             Trips = new HashSet<Trip>();
         }
 
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string Source { get; set; }
         public string Destination { get; set; }
         public string Description { get; set; }

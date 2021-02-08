@@ -41,6 +41,7 @@ namespace WebAPI.Helpers
         //New
         public const string TRIP_RELATION_DRIVER = "LKUP000000018";
         public const string TRIP_RELATION_CODRIVER = "LKUP000000019";
+        public const string VOUCHER_TYPE_NORMAL = "LKUP000000042";
 
         #endregion
 
@@ -100,8 +101,15 @@ namespace WebAPI.Helpers
 
         // New Constants
         #region OBJECT STATE DEFINITIONS
-        public const string OSD_REFUNDED = "1005";
-        public const string OSD_EXTENDED = "1006";
+        public const int OSD_PREPARED = 1000;
+        public const int OSD_REFUNDED = 1005;
+        public const int OSD_EXTENDED = 1006;
+        #endregion
+
+        #region PRICING TYPES
+        public const string PC_ROUTE_PRICE = "RUT";
+        public const string PC_RELATION_PRICE = "REL";
+        public const string PC_TRIP_PRICE = "TRP";
         #endregion
 
     }

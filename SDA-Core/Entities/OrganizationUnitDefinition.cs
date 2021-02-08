@@ -11,10 +11,9 @@ namespace SDA_Core.Entities
         {
             Activities = new HashSet<Activity>();
             OrganizationUnits = new HashSet<OrganizationUnit>();
-            RoleMappers = new HashSet<RoleMapper>();
         }
 
-        public string Code { get; set; }
+        public int Code { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
         public string Parent { get; set; }
@@ -25,6 +24,5 @@ namespace SDA_Core.Entities
         public virtual Lookup TypeNavigation { get; set; }
         public virtual ICollection<Activity> Activities { get; set; }
         public virtual ICollection<OrganizationUnit> OrganizationUnits { get; set; }
-        public virtual ICollection<RoleMapper> RoleMappers { get; set; }
     }
 }

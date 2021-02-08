@@ -33,7 +33,7 @@ namespace WebAPI.Dtos
     //Results
     public class TripResult
     {
-        public string tripCode { get; set; }
+        public int tripCode { get; set; }
         public string source { get; set; }
         public string destination { get; set; }
         public decimal price { get; set; }
@@ -56,7 +56,7 @@ namespace WebAPI.Dtos
     public class TripSeatArrangementResult
     {
         public int soldSeatsCount { get; set; }
-        public List<String> soldSeats { get; set; }
+        public List<string> soldSeats { get; set; }
         public List<SeatArrangementResult> seatArrangements { get; set; }
         public int maxX { get; set; }
         public int maxY { get; set; }
@@ -76,7 +76,7 @@ namespace WebAPI.Dtos
 
     public class SubTripsResult
     {
-        public string tripCode { get; set; }
+        public int tripCode { get; set; }
         public string source { get; set; }
         public string destination { get; set; }
         public decimal price { get; set; }
@@ -100,5 +100,36 @@ namespace WebAPI.Dtos
         public int Reference { get; set; }
         public string Attribute { get; set; }
         public string CurrentValue { get; set; }
+    }
+
+    //Save
+    public class TransactionElements
+    {
+        public string vRemark { get; set; }
+        public bool vIsChild { get; set; }
+
+        public int lTripCode { get; set; }
+        public string lSeatCode { get; set; }
+        public string lRemark { get; set; }
+
+        public int cCode { get; set; }
+        public string cFirstName { get; set; }
+        public string cMiddleName { get; set; }
+        public string cLastName { get; set; }
+        public bool cIsActive { get; set; }
+        public string cMobile { get; set; }
+        public string cRemark { get; set; }
+        public int cFlag { get; set; }
+    }
+
+    public class BaseTransaction
+    {
+        public BaseTransaction()
+        {
+            transactionElementsList = new List<TransactionElements>();
+        }
+        public string device { get; set; }
+        public string user { get; set; }
+        public List<TransactionElements> transactionElementsList;        
     }
 }
