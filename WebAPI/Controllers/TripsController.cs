@@ -193,7 +193,7 @@ namespace WebAPI.Controllers
                                     {
                                         voucher.LastActivity = addedActivity;
                                         voucher.GrandTotal = lineItem.TotalAmount;
-                                        var updatedVoucher = await _dataManager.UpdateVoucher()
+                                        var updatedVoucher = await _dataManager.UpdateVoucher(voucher);
                                     }
                                 }
                             }
