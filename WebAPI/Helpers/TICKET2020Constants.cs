@@ -42,6 +42,9 @@ namespace WebAPI.Helpers
         public const string TRIP_RELATION_DRIVER = "LKUP000000018";
         public const string TRIP_RELATION_CODRIVER = "LKUP000000019";
         public const string VOUCHER_TYPE_NORMAL = "LKUP000000042";
+        public const string RF_TYPE_CHILD_DISCOUNT = "LKUP000000045";
+        public const string RF_TYPE_REFUND = "LKUP000000044";
+        public const string RF_TYPE_EXTEND = "LKUP000000046";
 
         #endregion
 

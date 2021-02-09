@@ -18,6 +18,7 @@ namespace WebAPI.DataServices
         public Task<List<Configuration>> GetChildConfigurations();
         public Task<List<VoucherConsignee>> GetVoucherConsigneesByPhone(string phoneNo);
         public Task<Pricing> GetPricingByReferenceAndType(int reference, string type);
+        public Task<OrganizationUnit> GetOrganizationUnitByReference(string reference);
         #endregion
 
         #region Insert
@@ -25,6 +26,8 @@ namespace WebAPI.DataServices
         public Task<int> InsertLineItem(LineItem lineItem);
         public Task<int> InsertActivity(Activity activity);
         public Task<int> InsertVoucher(Voucher voucher);
+        public Task<int> InsertRefund(Refund refund);
+        public Task<int> InsertTripTrasaction(TripTransaction tripTransaction);
 
         #endregion
 

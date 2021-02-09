@@ -151,6 +151,11 @@ namespace WebAPI.DataServices
             return await _context.Pricings.FirstOrDefaultAsync(p => p.Reference == reference && p.Remark == type);
         }
 
+        public async Task<OrganizationUnit> GetOrganizationUnitByReference(string reference)
+        {
+            return await _context.OrganizationUnits.FirstOrDefaultAsync(p => p.Reference == reference);
+        }
+
         #endregion
 
         #region Insert
@@ -182,6 +187,21 @@ namespace WebAPI.DataServices
             await _context.SaveChangesAsync();
             return voucher.Code;
         }
+
+        public async Task<int> InsertRefund(Refund refund)
+        {
+            await _context.Refunds.AddAsync(refund);
+            await _context.SaveChangesAsync();
+            return refund.Code;
+        }
+
+        public async Task<int> InsertTripTrasaction(TripTransaction tripTransaction)
+        {
+            await _context.TripTransactions.AddAsync(tripTransaction);
+            await _context.SaveChangesAsync();
+            return tripTransaction.Code;
+        }
+
         #endregion
 
         #region Updater
@@ -202,7 +222,6 @@ namespace WebAPI.DataServices
             }
             return false;
         }
-
 
         #endregion
     }

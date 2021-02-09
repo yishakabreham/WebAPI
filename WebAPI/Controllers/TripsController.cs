@@ -88,6 +88,7 @@ namespace WebAPI.Controllers
             if(baseTransaction != null && baseTransaction.transactionElementsList != null 
                 && baseTransaction.transactionElementsList.Count > 0)
             {
+                var orgUnit = await _dataManager.GetOrganizationUnitByReference(baseTransaction.device);
                 foreach (var item in baseTransaction.transactionElementsList)
                 {
                     Pricing itemPrice;
@@ -148,37 +149,91 @@ namespace WebAPI.Controllers
 
                             if (itemPrice != null)
                             {
-                                var lineItem = new LineItem
+                                var childDiscount = item.vIsChild
+                                    ? await GetChildRefund(itemPrice.UnitAmount)
+                                    : null;
+
+
+                                var lineItem = await GetLineItem(childDiscount != null 
+                                                            ? itemPrice.UnitAmount - childDiscount.Amount
+                                                            : itemPrice.UnitAmount,
+                                                            childDiscount != null
+                                                            ? childDiscount.Amount
+                                                            : 0,
+                                                            itemPrice.Discount);
+
+                                lineItem.Voucher = addedVoucher;
+                                lineItem.Trip = item.lTripCode;
+                                lineItem.UnitAmount = itemPrice.UnitAmount;
+                                lineItem.Remark = item.lRemark;
+
+                                var addedLineItem = await _dataManager.InsertLineItem(lineItem);
+                                if(addedLineItem > 0)
                                 {
-                                    Discount = itemPrice.Discount,
-                                    Quantity = 1,
-                                    TotalAmount = itemPrice.UnitAmount,
-                                    Trip = item.lTripCode,
-                                    Remark = item.lRemark,
-                                    Voucher = addedVoucher
-                                };
+                                    if(childDiscount != null)
+                                    {
+                                        childDiscount.Reference = addedLineItem.ToString();
+
+                                        var addedChildDiscount = await _dataManager.InsertRefund(childDiscount);
+                                    }
+
+                                    var addedTripTransaction = await _dataManager.InsertTripTrasaction(new TripTransaction { LineItem = addedLineItem, Seat = item.lSeatCode });
+
+                                    var addedActivity = await _dataManager.InsertActivity(new Activity
+                                    {
+                                        ActivityDefinition = 2,
+                                        Device = baseTransaction.device,
+                                        EndTimeStamp = DateTime.Now,
+                                        Reference = addedVoucher.ToString(),
+                                        User = baseTransaction.user,
+                                        StartTimeStamp = DateTime.Now,
+                                        OrganizationUnitDefinition = orgUnit.OrganizationUnitDefinition
+                                    });
+                                }
                             }
                             
                         }
                     }
                 }
+                return Ok();
             }
-            return Ok();
+            return BadRequest();
         }
 
-        private async Task<double> getChildPrice(double normalPrice)
+        private async Task<Refund> GetChildRefund(decimal normalPrice)
         {
             var childConfig = await _dataManager.GetChildConfigurations();
 
             if(childConfig.FirstOrDefault(c  => c.Attribute == TICKET2020Constants.PL_ENABLE_CHILDREN_POLICY).CurrentValue == "true")
             {
                 int percent = int.Parse(childConfig.FirstOrDefault(c => c.Attribute == TICKET2020Constants.PL_CHILDREN_DISCOUNT_AMOUNT).CurrentValue);
-                return percent > 0 ? normalPrice - (normalPrice * (percent / 100.00)) : normalPrice;
+                return  percent > 0 
+                    ? new Refund
+                    {
+                        Percent = percent,
+                        Amount = normalPrice - (normalPrice * (decimal)(percent / 100.00)),
+                        Remark = normalPrice.ToString(),
+                        Type = TICKET2020Constants.RF_TYPE_CHILD_DISCOUNT
+                    } 
+                    : null;
             }
             else
             {
-                return normalPrice;
+                return null;
             }
+        }
+
+        private async Task<LineItem> GetLineItem(decimal itemPrice, decimal childDiscountAmount, decimal? itemDiscount)
+        {
+            var lineItem = new LineItem
+            {
+                Discount = itemDiscount.HasValue && itemDiscount.Value.CompareTo(0) > 0 
+                        ? (itemPrice - (itemPrice * (itemDiscount.Value / 100))) + childDiscountAmount
+                        : childDiscountAmount,
+                Quantity = 1
+            };
+            lineItem.TotalAmount = itemPrice - lineItem.Discount.Value;
+            return lineItem;
         }
     }
 }
