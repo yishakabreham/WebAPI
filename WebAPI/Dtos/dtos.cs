@@ -130,6 +130,6 @@ namespace WebAPI.Dtos
         }
         public string device { get; set; }
         public string user { get; set; }
-        public List<TransactionElements> transactionElementsList;        
+        public List<TransactionElements> transactionElementsList { get; set; };        
     }
 }

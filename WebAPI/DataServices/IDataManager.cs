@@ -33,6 +33,7 @@ namespace WebAPI.DataServices
 
         #region Updater
         public Task<bool> UpdateVoucherConsignee(VoucherConsignee consignee);
+        public Task<bool> UpdateVoucher(Voucher voucher);
         #endregion
     }
 }

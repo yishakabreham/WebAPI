@@ -223,6 +223,19 @@ namespace WebAPI.DataServices
             return false;
         }
 
+        public async Task<bool> UpdateVoucher(Voucher voucher)
+        {
+            var toUpdate = await _context.Vouchers.FirstOrDefaultAsync(c => c.Code == voucher.Code);
+            if (toUpdate != null)
+            {
+                toUpdate.GrandTotal = voucher.GrandTotal;
+                toUpdate.LastActivity = voucher.LastActivity;
+
+                return (await _context.SaveChangesAsync()) > 0;
+            }
+            return false;
+        }
+
         #endregion
     }
 }

@@ -189,6 +189,12 @@ namespace WebAPI.Controllers
                                         StartTimeStamp = DateTime.Now,
                                         OrganizationUnitDefinition = orgUnit.OrganizationUnitDefinition
                                     });
+                                    if(addedActivity > 0)
+                                    {
+                                        voucher.LastActivity = addedActivity;
+                                        voucher.GrandTotal = lineItem.TotalAmount;
+                                        var updatedVoucher = await _dataManager.UpdateVoucher()
+                                    }
                                 }
                             }
                             
